@@ -1,27 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="layout">
+    <Settings
+      :floors="state.floors"
+      :lifts="state.lifts"
+      @submit="changeSettings"
+    />
+    <div class="container">
+      <Lift
+        v-for="lift in state.lifts"
+        ref="liftList"
+        :key="lift"
+        :number="lift"
+        :floors="state.floors"
+        @stop="stop"
+      />
+      <div class="sub-container">
+        <Floor
+          v-for="floor in state.floors"
+          ref="floorList"
+          :key="floor"
+          :number="floor"
+          @call="call"
+        />
+      </div>
+    </div>
+  </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-});
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
