@@ -14,6 +14,36 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import { reactive, watch, onBeforeMount, toRefs } from "vue";
+
+const props = defineProps({
+  number: Number,
+});
+
+const state = reactive({
+  isRequested: false,
+});
+
+watch(state, () => {
+  localStorage.setItem(`floor-${props.number}`, JSON.stringify(state));
+});
+
+onBeforeMount(() => {
+  const persistedJSON = localStorage.getItem(`floor-${props.number}`);
+
+  if (persistedJSON !== null) {
+    const { isRequested } = JSON.parse(persistedJSON);
+    state.isRequested = isRequested;
+  }
+});
+
+defineExpose({
+  ...toRefs(props),
+  ...toRefs(state),
+});
+</script>
+
 <style scoped>
 .floor {
   display: flex;
