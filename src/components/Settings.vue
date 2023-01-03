@@ -73,6 +73,51 @@
   </Teleport>
 </template>
 
+<script setup lang="ts">
+import { reactive, computed, watchEffect } from "vue";
+
+const props = defineProps({
+  lifts: Number,
+  floors: Number,
+});
+
+const emit = defineEmits(["submit"]);
+
+const state = reactive({
+  isOpen: false,
+  liftsInput: 1,
+  floorsInput: 1,
+});
+
+const isSubmitEnable = computed(
+  () =>
+    !!(
+      Number(state.liftsInput) !== props.lifts ||
+      Number(state.floorsInput) !== props.floors
+    )
+);
+
+watchEffect(() => {
+  if (state.isOpen) {
+    state.liftsInput = props.lifts ?? 1;
+    state.floorsInput = props.floors ?? 1;
+  }
+});
+
+function open() {
+  state.isOpen = true;
+}
+
+function close() {
+  state.isOpen = false;
+}
+
+function submit() {
+  emit("submit", state.floorsInput, state.liftsInput);
+  close();
+}
+</script>
+
 <style scoped>
 .button {
   padding: var(--gap);
