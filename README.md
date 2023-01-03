@@ -1,5 +1,7 @@
 # trueconf-vue3-typescript-css
+Требуется разработать одностраничное приложение (SPA), эмулирующее работу лифтовой системы.
 
+[Demo](https://63b4223a15b1fe6d9cbb4571--whimsical-cassata-3c07ed.netlify.app/)
 ## Project setup
 ```
 yarn install
@@ -7,7 +9,7 @@ yarn install
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+yarn start
 ```
 
 ### Compiles and minifies for production
